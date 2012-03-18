@@ -1,2 +1,4 @@
 src/LB-projectmanager/LBprojectmanager-build-simulator-Simulator_Qt_for_MinGW_4_4__Qt_SDK__Debug/
 *autosave
+*.pro.user
+*~
