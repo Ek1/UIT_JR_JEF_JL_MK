@@ -6,141 +6,239 @@ Rectangle {
     id: page
     width: 360
     height: 360
-    color: "#343434"
+    gradient: Gradient {
+        GradientStop {
+            position: 0.150
+            color: "#759099"
+        }
 
-    Image {
-        id: icon
-        x: 10
-        y: 20
-        source: "LB.png"
-    }
-
-    Rectangle {
-        id: topLeftRect
-        x: 0
-        y: 0
-        width: 64
-        height: 64
-        color: "#00000000"
-        radius: 6
-        anchors.left: parent.left
-        anchors.leftMargin: 10
-        anchors.top: parent.top
-        anchors.topMargin: 20
-        border.color: "#808080"
-
-        MouseArea {
-            id: mousearea1
-            anchors.fill: parent
-            onClicked: page.state = ''
+        GradientStop {
+            position: 0.830
+            color: "#584543"
         }
     }
 
-    Rectangle {
-        id: middleRightRect
-        x: -9
-        y: 0
-        width: 64
-        height: 64
-        color: "#00000000"
-        radius: 6
-        anchors.right: parent.right
-        anchors.rightMargin: 10
-        anchors.verticalCenter: parent.verticalCenter
-        border.color: "#808080"
-        MouseArea {
-            id: mousearea2
-            anchors.fill: parent
-            onClicked: page.state = 'State1'
-        }
-    }
+    Flipable {
+        id: flipable1
+        transform: Rotation{
+            id:flip_rot
+            origin.x:flipable1.width/2
+            origin.y:flipable1.height/2
 
-    Rectangle {
-        id: bottomLeftRect
-        x: 7
-        y: 8
-        width: 64
-        height: 64
-        color: "#00000000"
-        radius: 6
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 20
-        border.color: "#808080"
-        MouseArea {
-            id: mousearea3
-            anchors.fill: parent
-            onClicked: page.state = 'State2'
+            axis.x:0
+            axis.y:1
+            axis.z:0
+
+            angle:0
         }
-        anchors.leftMargin: 10
-        anchors.left: parent.left
+        transitions: Transition {
+                 NumberAnimation { target: flip_rot; property: "angle"; duration: 1500 }
+             }
+        back: Rectangle {
+            id: rectangle1
+            color: "#ffffff"
+            opacity: 0
+            anchors.fill: parent
+
+            ListView {
+                id: list_view1
+                anchors.fill: parent
+                delegate: Item {
+                    x: 5
+                    height: 40
+                    Row {
+                        id: row1
+                        spacing: 10
+                        Rectangle {
+                            width: 40
+                            height: 40
+                            color: colorCode
+                        }
+
+                        Text {
+                            text: name
+                            anchors.verticalCenter: parent.verticalCenter
+                            font.bold: true
+                        }
+                    }
+                }
+                model: ListModel {
+                    ListElement {
+                        name: "Thesis"
+                        colorCode: "grey"
+                    }
+
+                    ListElement {
+                        name: "Cooking"
+                        colorCode: "red"
+                    }
+
+                    ListElement {
+                        name: "Cleaning"
+                        colorCode: "blue"
+                    }
+
+                    ListElement {
+                        name: "Fixin' thangs"
+                        colorCode: "green"
+                    }
+                }
+                opacity: 0
+            }
+
+            Rectangle {
+                id: rectangle2
+                x: 6
+                y: 0
+                width: 200
+                height: 200
+                color: "#ffffff"
+                opacity: 0
+
+                MouseArea {
+                    id: mouse_area1
+                    x: -136
+                    y: 29
+                    width: 100
+                    height: 100
+                    opacity: 0
+                    onClicked: {
+                        page.state = ''
+                        login_input.text = ''
+                        passwd_input.text = ''
+                    }
+                }
+
+                Text {
+                    id: text1
+                    x: -126
+                    y: 32
+                    text: qsTr("text")
+                    font.pixelSize: 12
+                    opacity: 0
+                }
+            }
+    }
+        anchors.fill: parent
+        front: Column {
+            id: column1
+            spacing: 10
+            anchors.fill: parent
+
+            Text {
+                id: login_header
+                color: "#ffffff"
+                text: qsTr("Login")
+                anchors.leftMargin: 0
+                anchors.topMargin: 0
+                font.pointSize: 16
+            }
+
+            Row {
+                id: login_row
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 20
+
+                Text {
+                    id: login_label
+                    color: "#ffffff"
+                    text: qsTr("Username")
+                    font.pointSize: 12
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                TextInput {
+                    id: login_input
+                    width: 200
+                    color: "#ffffff"
+                    font.pointSize: 12
+                    anchors.verticalCenter: login_label.verticalCenter
+                    Keys.onEnterPressed: {
+                        page.state = 'project_list'
+                        console.log("login enter")
+                    }
+                    Keys.onReturnPressed: {
+                        page.state = 'project_list'
+                        console.log("login return")
+                    }
+                }
+            }
+
+            Row {
+                id: passwd_row
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 20
+
+                Text {
+                    id: passwd_label
+                    color: "#ffffff"
+                    text: qsTr("Password")
+                    font.pointSize: 12
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                TextInput {
+                    id: passwd_input
+                    width: 200
+                    font.pointSize: 12
+                    anchors.verticalCenter: passwd_label.verticalCenter
+                    echoMode: TextInput.Password
+                    Keys.onEnterPressed: {
+                        page.state = 'project_list'
+                        console.log("pw enter")
+                    }
+                    Keys.onReturnPressed: {
+                        page.state = 'project_list'
+                        console.log("pw return")
+                    }
+                }
+            }
+    }
     }
     states: [
         State {
-            name: "State1"
+            name: "project_list"
 
             PropertyChanges {
-                target: icon
-                x: middleRightRect.x
-                y: middleRightRect.y
-            }
-        },
-        State {
-            name: "State2"
-
-            PropertyChanges {
-                target: icon
-                x: bottomLeftRect.x
-                y: bottomLeftRect.y
-            }
-        },
-        State {
-            name: "State3"
-            PropertyChanges {
-                target: icon
-                x: bottomLeftRect.x
-                y: bottomLeftRect.y
+                target: flip_rot
+                angle:180
             }
 
             PropertyChanges {
-                target: mousearea3
-                x: 276
+                target: list_view1
+                opacity: 1
+            }
+
+            PropertyChanges {
+                target: rectangle2
+                x: 160
                 y: 0
-                anchors.topMargin: 0
-                anchors.rightMargin: -276
-                anchors.bottomMargin: 0
-                anchors.leftMargin: 276
+                width: 200
+                height: 77
+                color: "#ff0000"
+                opacity: 1
             }
 
             PropertyChanges {
-                target: bottomLeftRect
-                x: 10
-                y: 212
-                anchors.bottomMargin: 84
-                anchors.leftMargin: 10
+                target: mouse_area1
+                x: 0
+                y: 0
+                width: 200
+                height: 77
+                opacity: 1
             }
-        }
-    ]
 
-    transitions: [
-    Transition {
-            from: "*"; to: "State1"
-            NumberAnimation {
-                properties: "x,y";
-                duration: 1000
-            }
-        },
-     Transition {
-            from: "*"; to: "State2"
-            NumberAnimation {
-                properties: "x,y";
-                easing.type: Easing.InOutQuad;
-                duration: 2000
-            }
-        },
-     Transition {
-            NumberAnimation {
-                properties: "x,y";
-                duration: 200
+            PropertyChanges {
+                target: text1
+                x: 47
+                y: 19
+                text: qsTr("Log out")
+                horizontalAlignment: "AlignHCenter"
+                verticalAlignment: "AlignVCenter"
+                font.pointSize: 24
+                opacity: 1
             }
         }
     ]
