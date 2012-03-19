@@ -1,29 +1,40 @@
 CREATE TABLE sqlite_sequence(name,seq);
+
 CREATE TABLE "User" (
-    "idUser" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "userID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "username" TEXT NOT NULL,
     "password" TEXT,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
     "isAdmin" INTEGER NOT NULL DEFAULT (0)
 );
+
 CREATE TABLE "Project" (
-    "idProject" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "projectID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "name" TEXT NOT NULL,
     "isOpen" INTEGER NOT NULL DEFAULT (1),
-    "idOwner" INTEGER NOT NULL
+    "ownerID" INTEGER NOT NULL,
+    "personID" INTEGER NOT NULL    
 );
+
 CREATE TABLE "Person" (
-    "idPerson" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    "firstname" TEXT NOT NULL,
-    "lastname" TEXT NOT NULL
+    "personID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL
 );
-CREATE TABLE "Member" (
-    "idPerson" INTEGER NOT NULL,
-    "idEvent" INTEGER NOT NULL
-);
-CREATE TABLE event (
-    "idEvent" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+
+CREATE TABLE "Event" (
+    "eventID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "name" TEXT NOT NULL,
     "description" BLOB,
     "time" TEXT NOT NULL,
-    "completionLevel" INTEGER NOT NULL
-, "idProject" INTEGER NOT NULL  DEFAULT (0));
+    "completionLevel" INTEGER NOT NULL,
+    "projectID" INTEGER NOT NULL  DEFAULT (0)
+);
+
+ALTER TABLE `Project`
+  ADD CONSTRAINT `project_fk1` FOREIGN KEY (`ownerID`) REFERENCES `User`(`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_fk2` FOREIGN KEY (`personID`) REFERENCES `Person`(`personID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  
+ALTER TABLE `Event`
+  ADD CONSTRAINT `event_fk1` FOREIGN KEY (`projectID`) REFERENCES `Project`(`projectID`) ON DELETE NO ACTION ON UPDATE NO ACTION;

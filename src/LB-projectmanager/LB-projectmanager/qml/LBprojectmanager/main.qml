@@ -92,6 +92,32 @@ Rectangle {
                 x: bottomLeftRect.x
                 y: bottomLeftRect.y
             }
+        },
+        State {
+            name: "State3"
+            PropertyChanges {
+                target: icon
+                x: bottomLeftRect.x
+                y: bottomLeftRect.y
+            }
+
+            PropertyChanges {
+                target: mousearea3
+                x: 276
+                y: 0
+                anchors.topMargin: 0
+                anchors.rightMargin: -276
+                anchors.bottomMargin: 0
+                anchors.leftMargin: 276
+            }
+
+            PropertyChanges {
+                target: bottomLeftRect
+                x: 10
+                y: 212
+                anchors.bottomMargin: 84
+                anchors.leftMargin: 10
+            }
         }
     ]
 
