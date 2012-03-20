@@ -1,38 +1,51 @@
 CREATE TABLE "User" (
     "userID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    "username" TEXT NOT NULL,
-    "password" TEXT,
-    "firstName" TEXT NOT NULL,
-    "lastName" TEXT NOT NULL,
-    "isAdmin" INTEGER NOT NULL DEFAULT (0)
-);
-
-CREATE TABLE "Project" (
-    "projectID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    "name" TEXT NOT NULL,
-    "isOpen" INTEGER NOT NULL DEFAULT (1),
-    "ownerID" INTEGER NOT NULL,
-    "personID" INTEGER NOT NULL    
+	"username" TEXT NOT NULL,
+	"password" TEXT,
+	"firstName" TEXT NOT NULL,
+	"lastName" TEXT NOT NULL,
+	"isAdmin" INTEGER NOT NULL DEFAULT (0)
 );
 
 CREATE TABLE "Person" (
-    "personID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    "firstName" TEXT NOT NULL,
-    "lastName" TEXT NOT NULL
+	"personID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+	"firstName" TEXT NOT NULL,
+	"lastName" TEXT NOT NULL
+);
+
+CREATE TABLE "Project" (
+	"projectID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+	"name" TEXT NOT NULL,
+	"isOpen" INTEGER NOT NULL DEFAULT (1),
+	"ownerID" INTEGER NOT NULL,
+	"personID" INTEGER NOT NULL,
+
+	CONSTRAINT project_fk1          
+		FOREIGN KEY (ownerID)             
+		REFERENCES User(userID),
+
+	CONSTRAINT project_fk2          
+		FOREIGN KEY (personID)         
+		REFERENCES Person(personID)
 );
 
 CREATE TABLE "Event" (
-    "eventID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    "name" TEXT NOT NULL,
-    "description" BLOB,
-    "time" TEXT NOT NULL,
-    "completionLevel" INTEGER NOT NULL,
-    "projectID" INTEGER NOT NULL  DEFAULT (0)
+	"eventID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+	"name" TEXT NOT NULL,
+	"description" BLOB,
+	"time" TEXT NOT NULL,
+	"completionLevel" INTEGER NOT NULL,
+	"projectID" INTEGER NOT NULL  DEFAULT (0),
+
+	CONSTRAINT event_fk1
+		FOREIGN KEY (projectID)         
+		REFERENCES Project(projectID)
 );
 
-ALTER TABLE `Project`
-  ADD CONSTRAINT `project_fk1` FOREIGN KEY (`ownerID`) REFERENCES `User`(`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `project_fk2` FOREIGN KEY (`personID`) REFERENCES `Person`(`personID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-  
-ALTER TABLE `Event`
-  ADD CONSTRAINT `event_fk1` FOREIGN KEY (`projectID`) REFERENCES `Project`(`projectID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+--ALTER TABLE `Project`
+--  ADD CONSTRAINT `project_fk1` FOREIGN KEY (`ownerID`) REFERENCES `User`(`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--  ADD CONSTRAINT `project_fk2` FOREIGN KEY (`personID`) REFERENCES `Person`(`personID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--ALTER TABLE `Event`
+--ADD CONSTRAINT `event_fk1` FOREIGN KEY (`projectID`) REFERENCES `Project`(`projectID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
