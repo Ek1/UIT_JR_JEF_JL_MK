@@ -31,13 +31,10 @@ Rectangle {
 
             angle:0
         }
-        transitions: Transition {
-                 NumberAnimation { target: flip_rot; property: "angle"; duration: 1500 }
-             }
         back: Rectangle {
             id: rectangle1
-            color: "#ffffff"
-            opacity: 0
+            color: "#ff8888"
+            opacity: 1
             anchors.fill: parent
 
             ListView {
@@ -83,42 +80,24 @@ Rectangle {
                         colorCode: "green"
                     }
                 }
-                opacity: 0
+                opacity: 1
             }
 
-            Rectangle {
-                id: rectangle2
-                x: 6
-                y: 0
-                width: 200
-                height: 200
-                color: "#ffffff"
-                opacity: 0
+            GlassButton{
+                id:logout_button
+                text:qsTr("Log out")
+                anchors.right: parent.right
+                anchors.top: parent.top
 
-                MouseArea {
-                    id: mouse_area1
-                    x: -136
-                    y: 29
-                    width: 100
-                    height: 100
-                    opacity: 0
-                    onClicked: {
-                        page.state = ''
-                        login_input.text = ''
-                        passwd_input.text = ''
-                    }
-                }
-
-                Text {
-                    id: text1
-                    x: -126
-                    y: 32
-                    text: qsTr("text")
-                    font.pixelSize: 12
-                    opacity: 0
+                onClicked: {
+                    page.state = ''
+                    login_input.text = 'logged out'
+                    passwd_input.text = '***, lol'
+                    console.debug('logout button clicked')
                 }
             }
-    }
+
+        }
         anchors.fill: parent
         front: Column {
             id: column1
@@ -147,20 +126,37 @@ Rectangle {
                     font.pointSize: 12
                     verticalAlignment: Text.AlignVCenter
                 }
-
-                TextInput {
-                    id: login_input
+                Rectangle {
                     width: 200
-                    color: "#ffffff"
-                    font.pointSize: 12
-                    anchors.verticalCenter: login_label.verticalCenter
-                    Keys.onEnterPressed: {
-                        page.state = 'project_list'
-                        console.log("login enter")
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                    border.width: 2
+                    border.color: "#ffffff"
+                    gradient: Gradient {
+                        GradientStop {
+                            position: 0
+                            color: "#483533"
+                        }
+
+                        GradientStop {
+                            position: 1
+                            color: "#658089"
+                        }
                     }
-                    Keys.onReturnPressed: {
-                        page.state = 'project_list'
-                        console.log("login return")
+                    TextInput {
+                        id: login_input
+                        color: "#ffffff"
+                        anchors.fill: parent
+                        font.pointSize: 12
+                        anchors.verticalCenter: login_label.verticalCenter
+                        Keys.onEnterPressed: {
+                            page.state = 'project_list'
+                            console.log("login enter")
+                        }
+                        Keys.onReturnPressed: {
+                            page.state = 'project_list'
+                            console.log("login return")
+                        }
                     }
                 }
             }
@@ -179,23 +175,43 @@ Rectangle {
                     verticalAlignment: Text.AlignVCenter
                 }
 
-                TextInput {
-                    id: passwd_input
+                Rectangle {
                     width: 200
-                    font.pointSize: 12
-                    anchors.verticalCenter: passwd_label.verticalCenter
-                    echoMode: TextInput.Password
-                    Keys.onEnterPressed: {
-                        page.state = 'project_list'
-                        console.log("pw enter")
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                    border.width: 2
+                    border.color: "#ffffff"
+                    gradient: Gradient {
+                        GradientStop {
+                            position: 0
+                            color: "#483533"
+                        }
+
+                        GradientStop {
+                            position: 1
+                            color: "#658089"
+                        }
                     }
-                    Keys.onReturnPressed: {
-                        page.state = 'project_list'
-                        console.log("pw return")
+
+                    TextInput {
+                        id: passwd_input
+                        color: "#ffffff"
+                        width: 200
+                        font.pointSize: 12
+                        anchors.verticalCenter: passwd_label.verticalCenter
+                        echoMode: TextInput.Password
+                        Keys.onEnterPressed: {
+                            page.state = 'project_list'
+                            console.log("pw enter")
+                        }
+                        Keys.onReturnPressed: {
+                            page.state = 'project_list'
+                            console.log("pw return")
+                        }
                     }
                 }
             }
-    }
+        }
     }
     states: [
         State {
@@ -205,41 +221,9 @@ Rectangle {
                 target: flip_rot
                 angle:180
             }
-
-            PropertyChanges {
-                target: list_view1
-                opacity: 1
-            }
-
-            PropertyChanges {
-                target: rectangle2
-                x: 160
-                y: 0
-                width: 200
-                height: 77
-                color: "#ff0000"
-                opacity: 1
-            }
-
-            PropertyChanges {
-                target: mouse_area1
-                x: 0
-                y: 0
-                width: 200
-                height: 77
-                opacity: 1
-            }
-
-            PropertyChanges {
-                target: text1
-                x: 47
-                y: 19
-                text: qsTr("Log out")
-                horizontalAlignment: "AlignHCenter"
-                verticalAlignment: "AlignVCenter"
-                font.pointSize: 24
-                opacity: 1
-            }
         }
     ]
+    transitions: Transition {
+        NumberAnimation { properties: "angle"; duration: 500 }
+    }
 }

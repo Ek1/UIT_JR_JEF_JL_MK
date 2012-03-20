@@ -2,28 +2,35 @@
 import QtQuick 1.1
 
 Rectangle {
-    id: backgound
+    id: background
     width: 128
     height: 64
     radius: 24
-    property alias color: bg_stop2.color;
+    scale:1
+    property alias trns_y: translation.y
+    transform: Translate{
+        id: translation
+        y:0
+    }
+    color: Qt.rgba(0.5,1,0.5,1);
+    signal clicked()
+
     property alias text: buttontext.text;
+
     gradient: Gradient {
         GradientStop {
             position: 0
-            color:"#006e0c"
-
+            color: Qt.rgba(0,0.5,0,1);
         }
 
         GradientStop {
-            id:bg_stop2
-            position: 0.90
-            color: "#00ff00"
+            position: 0.9
+            color: background.color;
         }
 
         GradientStop {
             position: 1
-            color: "#2cbe00"
+            color: Qt.rgba(0,0.75,0,1);
         }
     }
 
@@ -44,24 +51,26 @@ Rectangle {
     Rectangle {
         id: overlay
         radius: 24
-        anchors.bottomMargin: -1
-        anchors.topMargin: 1
-        anchors.rightMargin: 1
-        anchors.leftMargin: 1
+        anchors.bottomMargin: 2
+        anchors.topMargin: 2
+        anchors.rightMargin: 2
+        anchors.leftMargin: 2
         smooth: true
         gradient: Gradient {
+            id:glow
             GradientStop {
                 position: 0
-                color: "#40ffffff"
+                color: "#00ffffff"
             }
 
             GradientStop {
+                id:center_light_stop
                 position: 0.1
-                color: "#ffffff"
+                color: "#ffffffff"
             }
 
             GradientStop {
-                position: 0.750
+                position: 0.75
                 color: "#00ffffff"
             }
         }
@@ -70,7 +79,26 @@ Rectangle {
         MouseArea {
             id: mouse_area1
             anchors.fill: parent
+            onPressed: {
+                background.state = 'pressed'
+                console.log('glassbutton.pressed')
+            }
+            onReleased: {
+                background.state = ''
+                console.log('glassbutton.released')
+            }
+            onClicked: background.clicked()
         }
     }
 
+    states: [
+        State {
+            name: "pressed"
+            PropertyChanges {
+                target: background
+                scale:0.95
+                trns_y:10
+            }
+        }
+    ]
 }
