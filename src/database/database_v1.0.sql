@@ -1,5 +1,3 @@
-CREATE TABLE sqlite_sequence(name,seq);
-
 CREATE TABLE "User" (
     "userID" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "username" TEXT NOT NULL,
