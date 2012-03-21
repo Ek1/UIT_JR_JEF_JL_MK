@@ -2,7 +2,7 @@
 import QtQuick 1.1
 
 Rectangle {
-    id: background
+    id: base
     width: 128
     height: 64
     radius: 24
@@ -13,6 +13,7 @@ Rectangle {
         y:0
     }
     color: Qt.rgba(0.5,1,0.5,1);
+    property alias text_color: buttontext.color
     signal clicked()
 
     property alias text: buttontext.text;
@@ -20,23 +21,23 @@ Rectangle {
     gradient: Gradient {
         GradientStop {
             position: 0
-            color: Qt.rgba(0,0.5,0,1);
+            color: Qt.darker(base.color, 2)
         }
 
         GradientStop {
             position: 0.9
-            color: background.color;
+            color: base.color
         }
 
         GradientStop {
             position: 1
-            color: Qt.rgba(0,0.75,0,1);
+            color: Qt.darker(base.color, 1.5)
         }
     }
 
     Text {
         id: buttontext
-        color: "#000000"
+        color: "black"
         text: qsTr("buttontext")
         font.pointSize: 12
         font.family: "Liberation Sans"
@@ -80,14 +81,14 @@ Rectangle {
             id: mouse_area1
             anchors.fill: parent
             onPressed: {
-                background.state = 'pressed'
+                base.state = 'pressed'
                 console.log('glassbutton.pressed')
             }
             onReleased: {
-                background.state = ''
+                base.state = ''
                 console.log('glassbutton.released')
             }
-            onClicked: background.clicked()
+            onClicked: base.clicked()
         }
     }
 
@@ -95,7 +96,7 @@ Rectangle {
         State {
             name: "pressed"
             PropertyChanges {
-                target: background
+                target: base
                 scale:0.95
                 trns_y:10
             }

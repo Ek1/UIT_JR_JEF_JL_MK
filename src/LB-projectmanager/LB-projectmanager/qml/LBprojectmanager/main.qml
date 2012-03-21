@@ -88,6 +88,8 @@ Rectangle {
                 text:qsTr("Log out")
                 anchors.right: parent.right
                 anchors.top: parent.top
+                color: "red"
+                text_color: "white"
 
                 onClicked: {
                     page.state = ''
@@ -148,7 +150,6 @@ Rectangle {
                         color: "#ffffff"
                         anchors.fill: parent
                         font.pointSize: 12
-                        anchors.verticalCenter: login_label.verticalCenter
                         Keys.onEnterPressed: {
                             page.state = 'project_list'
                             console.log("login enter")
@@ -198,7 +199,6 @@ Rectangle {
                         color: "#ffffff"
                         width: 200
                         font.pointSize: 12
-                        anchors.verticalCenter: passwd_label.verticalCenter
                         echoMode: TextInput.Password
                         Keys.onEnterPressed: {
                             page.state = 'project_list'
@@ -210,6 +210,13 @@ Rectangle {
                         }
                     }
                 }
+            }
+
+            GlassButton {
+                id: glassbutton1
+                text: "Log in"
+                anchors.right: parent.right
+                onClicked: page.state = 'project_list'
             }
         }
     }
@@ -224,6 +231,11 @@ Rectangle {
         }
     ]
     transitions: Transition {
-        NumberAnimation { properties: "angle"; duration: 500 }
+        NumberAnimation {
+            properties: "angle";
+            duration: 500
+            easing.type: Easing.OutBack
+            easing.overshoot: 3
+        }
     }
 }
