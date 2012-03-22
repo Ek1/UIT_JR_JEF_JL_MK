@@ -1,48 +1,51 @@
 // import QtQuick 1.0 // to target S60 5th Edition or Maemo 5
 import QtQuick 1.1
 
-Rectangle {
+Item {
     id: base
     width: 128
     height: 64
-    radius: 24
     scale:1
     property alias trns_y: translation.y
     transform: Translate{
         id: translation
         y:0
     }
-    color: Qt.rgba(0.5,1,0.5,1);
-    property alias text_color: buttontext.color
+    property color text_color: "white"
+    property color bg_color: Qt.rgba(0.5,1,0.5,1);
     signal clicked()
-
     property alias text: buttontext.text;
 
-    gradient: Gradient {
-        GradientStop {
-            position: 0
-            color: Qt.darker(base.color, 2)
-        }
+    Rectangle {
+        id: background
+        radius: 24
+        anchors.fill: parent
 
-        GradientStop {
-            position: 0.9
-            color: base.color
-        }
+        gradient: Gradient {
+            GradientStop {
+                position: 0
+                color: Qt.darker(base.bg_color, 2)
+            }
 
-        GradientStop {
-            position: 1
-            color: Qt.darker(base.color, 1.5)
+            GradientStop {
+                position: 0.9
+                color: base.bg_color
+            }
+
+            GradientStop {
+                position: 1
+                color: Qt.darker(base.bg_color, 1.5)
+            }
         }
     }
 
     Text {
         id: buttontext
-        color: "black"
+        color: base.text_color
         text: qsTr("buttontext")
         font.pointSize: 12
         font.family: "Liberation Sans"
         font.bold: true
-        styleColor: "#565e56"
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         anchors.verticalCenter: parent.verticalCenter
@@ -52,13 +55,13 @@ Rectangle {
     Rectangle {
         id: overlay
         radius: 24
+        anchors.fill: parent
         anchors.bottomMargin: 2
         anchors.topMargin: 2
         anchors.rightMargin: 2
         anchors.leftMargin: 2
         smooth: true
         gradient: Gradient {
-            id:glow
             GradientStop {
                 position: 0
                 color: "#00ffffff"
@@ -75,7 +78,6 @@ Rectangle {
                 color: "#00ffffff"
             }
         }
-        anchors.fill: parent
 
         MouseArea {
             id: mouse_area1
