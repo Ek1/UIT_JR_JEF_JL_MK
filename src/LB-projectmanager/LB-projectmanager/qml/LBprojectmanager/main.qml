@@ -46,10 +46,11 @@ Rectangle {
                     Row {
                         id: row1
                         spacing: 10
-                        Rectangle {
-                            width: 40
-                            height: 40
-                            color: colorCode
+                        ProgressBar{
+                            progress_ratio: progress
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            width:100
                         }
 
                         Text {
@@ -62,22 +63,22 @@ Rectangle {
                 model: ListModel {
                     ListElement {
                         name: "Thesis"
-                        colorCode: "grey"
+                        progress: 0.1
                     }
 
                     ListElement {
                         name: "Cooking"
-                        colorCode: "red"
+                        progress: 0.2
                     }
 
                     ListElement {
                         name: "Cleaning"
-                        colorCode: "blue"
+                        progress: 0.312
                     }
 
                     ListElement {
                         name: "Fixin' thangs"
-                        colorCode: "green"
+                        progress: 0.5125
                     }
                 }
                 opacity: 1
@@ -88,7 +89,7 @@ Rectangle {
                 text:qsTr("Log out")
                 anchors.right: parent.right
                 anchors.top: parent.top
-                color: "red"
+                bg_color: "red"
                 text_color: "white"
 
                 onClicked: {
