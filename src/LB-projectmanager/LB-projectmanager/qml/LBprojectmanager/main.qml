@@ -108,6 +108,12 @@ Rectangle {
                 }
             }
 
+            Checkbox {
+                id: checkbox1
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+            }
+
         }
         anchors.fill: parent
         front: Column {
@@ -160,11 +166,11 @@ Rectangle {
                         anchors.fill: parent
                         font.pointSize: 12
                         Keys.onEnterPressed: {
-                            page.state = 'project_list'
+                            page.state = 'logged_in'
                             console.log("login enter")
                         }
                         Keys.onReturnPressed: {
-                            page.state = 'project_list'
+                            page.state = 'logged_in'
                             console.log("login return")
                         }
                     }
@@ -210,11 +216,11 @@ Rectangle {
                         font.pointSize: 12
                         echoMode: TextInput.Password
                         Keys.onEnterPressed: {
-                            page.state = 'project_list'
+                            page.state = 'logged_in'
                             console.log("pw enter")
                         }
                         Keys.onReturnPressed: {
-                            page.state = 'project_list'
+                            page.state = 'logged_in'
                             console.log("pw return")
                         }
                     }
@@ -225,13 +231,13 @@ Rectangle {
                 id: glassbutton1
                 text: "Log in"
                 anchors.right: parent.right
-                onClicked: page.state = 'project_list'
+                onClicked: page.state = 'logged_in'
             }
         }
     }
     states: [
         State {
-            name: "project_list"
+            name: "logged_in"
 
             PropertyChanges {
                 target: flip_rot
