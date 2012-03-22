@@ -34,7 +34,6 @@ Rectangle {
         back: Rectangle {
             id: rectangle1
             color: "#ff8888"
-            opacity: 1
             anchors.fill: parent
 
             ListView {
@@ -46,6 +45,12 @@ Rectangle {
                     Row {
                         id: row1
                         spacing: 10
+
+                        Text {
+                            text: person_name
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+
                         ProgressBar{
                             progress_ratio: progress
                             anchors.top: parent.top
@@ -54,7 +59,7 @@ Rectangle {
                         }
 
                         Text {
-                            text: name
+                            text: project_name
                             anchors.verticalCenter: parent.verticalCenter
                             font.bold: true
                         }
@@ -62,26 +67,29 @@ Rectangle {
                 }
                 model: ListModel {
                     ListElement {
-                        name: "Thesis"
+                        person_name: "Andy"
+                        project_name: "Thesis"
                         progress: 0.1
                     }
 
                     ListElement {
-                        name: "Cooking"
-                        progress: 0.2
+                        person_name: "Bertha"
+                        project_name: "Cooking"
+                        progress: 0.789
                     }
 
                     ListElement {
-                        name: "Cleaning"
+                        person_name: "Cecil"
+                        project_name: "Cleaning"
                         progress: 0.312
                     }
 
                     ListElement {
-                        name: "Fixin' thangs"
+                        person_name: "David"
+                        project_name: "Fixin' thangs"
                         progress: 0.5125
                     }
                 }
-                opacity: 1
             }
 
             GlassButton{
