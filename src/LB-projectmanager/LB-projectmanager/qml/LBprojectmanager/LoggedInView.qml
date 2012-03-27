@@ -27,7 +27,6 @@ Item {
             GlassButton{
                 id:filter_projects_button
                 text:qsTr("Filter")
-                anchors.right: parent.right
                 bg_color: "orange"
                 text_color: "white"
                 height:50
@@ -49,7 +48,6 @@ Item {
             height: 50
             text:qsTr("Log out")
             anchors.right: parent.right
-            anchors.bottom: parent.bottom
             bg_color: "red"
             text_color: "white"
 
