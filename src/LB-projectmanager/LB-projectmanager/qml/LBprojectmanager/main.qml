@@ -31,90 +31,10 @@ Rectangle {
 
             angle:0
         }
-        back: Rectangle {
-            id: rectangle1
-            color: "#ff8888"
+        back: LoggedInView{
             anchors.fill: parent
-
-            ListView {
-                id: list_view1
-                anchors.fill: parent
-                delegate: Item {
-                    x: 5
-                    height: 40
-                    Row {
-                        id: row1
-                        spacing: 10
-
-                        Text {
-                            text: person_name
-                            anchors.verticalCenter: parent.verticalCenter
-                        }
-
-                        ProgressBar{
-                            progress_ratio: progress
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            width:100
-                        }
-
-                        Text {
-                            text: project_name
-                            anchors.verticalCenter: parent.verticalCenter
-                            font.bold: true
-                        }
-                    }
-                }
-                model: ListModel {
-                    ListElement {
-                        person_name: "Andy"
-                        project_name: "Thesis"
-                        progress: 0.1
-                    }
-
-                    ListElement {
-                        person_name: "Bertha"
-                        project_name: "Cooking"
-                        progress: 0.789
-                    }
-
-                    ListElement {
-                        person_name: "Cecil"
-                        project_name: "Cleaning"
-                        progress: 0.312
-                    }
-
-                    ListElement {
-                        person_name: "David"
-                        project_name: "Fixin' thangs"
-                        progress: 0.5125
-                    }
-                }
-            }
-
-            GlassButton{
-                id:logout_button
-                text:qsTr("Log out")
-                anchors.right: parent.right
-                anchors.top: parent.top
-                bg_color: "red"
-                text_color: "white"
-
-                onClicked: {
-                    page.state = ''
-                    login_input.text = 'logged out'
-                    passwd_input.text = '***, lol'
-                    console.debug('logout button clicked')
-                }
-            }
-
-            Checkbox {
-                id: checkbox1
-                anchors.left: parent.left
-                anchors.bottom: parent.bottom
-            }
-
         }
+
         anchors.fill: parent
         front: Column {
             id: column1
