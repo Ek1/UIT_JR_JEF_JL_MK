@@ -157,7 +157,6 @@ Rectangle {
             height: 50
             text: "Complete"
             text_color: "#197adb"
-            trns_y: 0
             bg_color: "#aa3a11"
         }
     }
