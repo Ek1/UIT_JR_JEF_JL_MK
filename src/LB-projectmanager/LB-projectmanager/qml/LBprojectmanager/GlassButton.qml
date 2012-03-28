@@ -6,7 +6,6 @@ Item {
     width: 128
     height: 64
     scale:1
-    property alias trns_y: translation.y
     transform: Translate{
         id: translation
         y:0
@@ -100,8 +99,12 @@ Item {
             PropertyChanges {
                 target: base
                 scale:0.95
-                trns_y:10
             }
+            PropertyChanges {
+                target: translation
+                y:10
+            }
+
         }
     ]
 }

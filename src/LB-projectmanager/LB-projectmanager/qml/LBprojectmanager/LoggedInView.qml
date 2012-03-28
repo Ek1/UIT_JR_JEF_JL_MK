@@ -59,4 +59,28 @@ Item {
             }
         }
     }
+
+    Radiobutton {
+        id: radiobutton1
+        x: 0
+        y: 268
+        width: 32
+        height: 32
+        checked: false
+        anchors.left: project_list.right
+        anchors.leftMargin: -300
+        anchors.top: project_list.bottom
+        anchors.topMargin: -250
+        anchors.bottom: project_list.top
+        anchors.bottomMargin: 18
+    }
+
+    Checkbox {
+        id: checkbox1
+        x: 37
+        y: 270
+        width: 33
+        height: 26
+        checked: false
+    }
 }
