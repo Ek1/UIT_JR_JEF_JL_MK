@@ -47,4 +47,5 @@ OTHER_FILES += \
 	qml/LBprojectmanager/ProgressBar.qml \
 	qml/LBprojectmanager/ProjectDetails.qml \
 	qml/LBprojectmanager/ProjectList.qml \
-	qml/LBprojectmanager/Radiobutton.qml
+	qml/LBprojectmanager/Radiobutton.qml \
+    qml/LBprojectmanager/AddProjectView.qml
