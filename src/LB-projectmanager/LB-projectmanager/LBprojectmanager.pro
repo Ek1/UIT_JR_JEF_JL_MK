@@ -35,3 +35,16 @@ SOURCES += main.cpp
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
+
+OTHER_FILES += \
+	qml/LBprojectmanager/AddEventView.qml \
+	qml/LBprojectmanager/Checkbox.qml \
+	qml/LBprojectmanager/Dropdown.qml \
+	qml/LBprojectmanager/FilterProject.qml \
+	qml/LBprojectmanager/GlassButton.qml \
+	qml/LBprojectmanager/LoggedInView.qml \
+	qml/LBprojectmanager/main.qml \
+	qml/LBprojectmanager/ProgressBar.qml \
+	qml/LBprojectmanager/ProjectDetails.qml \
+	qml/LBprojectmanager/ProjectList.qml \
+	qml/LBprojectmanager/Radiobutton.qml

@@ -29,6 +29,7 @@ Rectangle {
         Checkbox {
             id: checkbox1
             width: height
+            checked: false
             anchors.bottom: parent.bottom
             anchors.top: parent.top
         }
@@ -91,6 +92,7 @@ Rectangle {
             id: radiobutton2
             y: 0
             width: height
+            checked: false
             anchors.top: parent.top
             anchors.bottom: parent.bottom
         }
@@ -181,6 +183,7 @@ Rectangle {
 
     ProjectList {
         id: projectlist1
+        anchors.topMargin: 28
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
