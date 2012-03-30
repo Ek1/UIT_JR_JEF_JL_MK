@@ -48,4 +48,5 @@ OTHER_FILES += \
 	qml/LBprojectmanager/ProjectDetails.qml \
 	qml/LBprojectmanager/ProjectList.qml \
 	qml/LBprojectmanager/Radiobutton.qml \
-    qml/LBprojectmanager/AddProjectView.qml
+    qml/LBprojectmanager/AddProjectView.qml \
+    qml/LBprojectmanager/AddPersonView.qml
