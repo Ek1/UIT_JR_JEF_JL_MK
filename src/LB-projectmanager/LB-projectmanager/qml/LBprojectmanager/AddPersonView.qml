@@ -6,6 +6,8 @@ Rectangle {
     width: 200
     height: 100
     color: "#feb3ff"
+    signal add()
+    signal discard()
 
     Text {
         id: firstname_label
@@ -76,5 +78,10 @@ Rectangle {
         text: "add"
         anchors.bottom: parent.bottom
         anchors.right: parent.right
+    }
+
+    Component.onCompleted: {
+        add_button.clicked.connect(add);
+        discard_button.clicked.connect(discard);
     }
 }

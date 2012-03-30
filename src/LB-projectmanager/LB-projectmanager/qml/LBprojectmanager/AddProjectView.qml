@@ -6,6 +6,8 @@ Rectangle {
     width: 300
     height: 200
     color: "#d3a7b7"
+    signal add()
+    signal discard()
 
     Grid {
         id: grid1
@@ -236,5 +238,51 @@ Rectangle {
         text: "Add"
         anchors.bottom: parent.bottom
         anchors.right: parent.right
+    }
+
+    GlassButton {
+        id: add_person_button
+        x: 91
+        y: 44
+        width: parent.width/3
+        height: 32
+        text: "Add person"
+        text_color: "#000000"
+        bg_color: "#00e6ff"
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        onClicked: rectangle2.state = "add_person"
+    }
+
+    AddPersonView {
+        id: addpersonview1
+        y: -parent.height
+        width: parent.width
+        height: parent.height
+        anchors.horizontalCenter: parent.horizontalCenter
+        onAdd: rectangle2.state = ''
+        onDiscard: rectangle2.state = ''
+    }
+    states: [
+        State {
+            name: "add_person"
+
+            PropertyChanges {
+                target: addpersonview1
+                y: 0
+            }
+        }
+    ]
+    transitions: Transition {
+        NumberAnimation {
+            properties: "y";
+            duration: 500
+            easing.type: Easing.OutBack
+            easing.overshoot: 3
+        }
+    }
+    Component.onCompleted: {
+        add_button.clicked.connect(add);
+        discard_button.clicked.connect(discard);
     }
 }

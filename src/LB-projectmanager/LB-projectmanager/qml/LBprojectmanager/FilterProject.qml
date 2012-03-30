@@ -5,6 +5,7 @@ Rectangle {
     id: rectangle1
     width: 300
     height: 300
+    signal back()
     gradient: Gradient {
         GradientStop {
             position: 0
@@ -197,5 +198,8 @@ Rectangle {
         bg_color: "#6e58ff"
         anchors.left: parent.left
         anchors.bottom: parent.bottom
+    }
+    Component.onCompleted: {
+        glassbutton1.clicked.connect(back);
     }
 }
